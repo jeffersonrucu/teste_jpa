@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mysql_article:
+    image: mysql
+    container_name: mysql_article
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: article_api
+    restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-container
+    ports:
+      - "8989:80"
+    environment:
+      PMA_HOST: mysql_article
+      PMA_PORT: 3306
+    depends_on:
+      - mysql_article
